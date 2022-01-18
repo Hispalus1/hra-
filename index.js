@@ -8,6 +8,8 @@ class Snake {
   }
 }
 
+//proměné
+
 let speed = 7;
 
 let tileCount = 20;
@@ -32,9 +34,12 @@ let yVelocity = 0;
 
 let score = 0;
 
+//zvuky
 const gulpSound = new Audio("gulp.mp3");
 const ded = new Audio("ded.mp3");
 
+
+//vykreslení hry
 function drawGame() {
   xVelocity = inputsXVelocity;
   yVelocity = inputsYVelocity;
@@ -65,6 +70,8 @@ function drawGame() {
   setTimeout(drawGame, 1000 / speed);
 }
 
+//ukončení hry
+
 function isGameOver() {
   let gameOver = false;
 
@@ -72,7 +79,7 @@ function isGameOver() {
     return false;
   }
 
-  //walls
+  //hranice herni plochy
   if (headX < 0) {
     gameOver = true;
   } else if (headX === tileCount) {
@@ -90,7 +97,7 @@ function isGameOver() {
       break;
     }
   }
-
+//napis game over
   if (gameOver) {
     ctx.fillStyle = "white";
     ctx.font = "50px Verdana";
@@ -113,18 +120,18 @@ function isGameOver() {
   }
   return gameOver;
 }
-
+// vykresleni score
 function drawScore() {
   ctx.fillStyle = "white";
   ctx.font = "10px Verdana";
   ctx.fillText("Score " + score, canvas.width - 50, 10);
 }
-
+//zamazávání plochy
 function clearScreen() {
   ctx.fillStyle = "black";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
-
+//vykreslení hada i s jeho rostoucím tělem
 function drawSnake() {
   ctx.fillStyle = "green";
   for (let i = 0; i < snakeParts.length; i++) {
@@ -145,7 +152,7 @@ function changeSnakePosition() {
   headX = headX + xVelocity;
   headY = headY + yVelocity;
 }
-
+//vykreslení jablek a koláču
 function drawApple() {
   ctx.fillStyle = "red";
   ctx.fillRect(appleX * tileCount, appleY * tileCount, tileSize, tileSize);
@@ -158,7 +165,7 @@ function drawPie() {
     
     
   }
-
+//kontrola kolize
 function checkAppleCollision() {
   if (appleX === headX && appleY == headY) {
     appleX = Math.floor(Math.random() * tileCount);
@@ -181,7 +188,7 @@ function checkPieCollision() {
   }
 
 document.body.addEventListener("keydown", keyDown);
-
+//keys
 function keyDown(event) {
   //up
   if (event.keyCode == 38 || event.keyCode == 87) {
